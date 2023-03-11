@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { UnauthenticatedError } = require('../errors');
 
@@ -14,8 +14,8 @@ const auth = async (req, res, next) => {
 
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET);
-        //attach the use to the project route
 
+        //attach the user to the project route
         req.user = { userId: payload.userId, name: payload.name };
         next();
     } catch (error) {

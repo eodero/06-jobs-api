@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema({
-    project: {
+    task: {
         type: String,
         required: [true, 'Project name is required'],
         maxLength: 50

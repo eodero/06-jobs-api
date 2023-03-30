@@ -24,7 +24,7 @@ const getProject = async (req, res) => {
 
 const createProject = async (req, res) => {
     req.body.createdBy = req.user.userId;
-    const project = await Project.create(req.body);
+    const project = await Project.create( req.body );
     res.status(StatusCodes.CREATED).json({ project });
 }
 
@@ -54,7 +54,7 @@ const deleteProject = async (req, res) => {
     if (!project) {
         throw new NotFoundError(`No project with id ${projectId}`)
     }
-    res.status(StatusCodes.OK).send()
+    res.status(StatusCodes.OK).json({msg: "The entry was deleted"});
 }
 
 module.exports = {

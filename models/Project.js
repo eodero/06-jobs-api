@@ -15,13 +15,12 @@ const ProjectSchema = new mongoose.Schema({
         required: [true, 'Please add a description']
     },
     createdBy: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: [true, 'Project owner is required']
     },
     assignedTo: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: [true, 'Project assignee is required']
     },
     status: {

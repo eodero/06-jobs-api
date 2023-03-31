@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectsTableHeader = document.getElementById("projects-table-header");
     const addProject = document.getElementById("add-project");
     const editProject = document.getElementById("edit-project");
-    const deleteProject = document.getElementById("delete-project")
     const task = document.getElementById("task");
     const dueDate = document.getElementById("due-date");
     const description = document.getElementById("description");
@@ -375,20 +374,24 @@ document.addEventListener("DOMContentLoaded", () => {
       suspendInput = false;
       //delete
     } else if (e.target.classList.contains("deleteButton")) {
-      deleteProject.dataset.id = e.target.dataset.id;
       suspendInput = true;
       try {
-        const response = await fetch(`/api/v1/projects/${e.target.dataset.id}`, {
+        const projectID = e.target.dataset.id;
+        const response = await fetch(`/api/v1/projects/${projectID.id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         });
-        if (response.status === 204) {
+        const data = await response.json();
+        if (response.status === 200) {
           message.textContent = "The project entry successfully deleted";
+          // showing.style.display = "none";
           thisEvent = new Event("startDisplay");
           document.dispatchEvent(thisEvent);
+        } else {
+          message.textContent = data.msg;
         }
       } catch (err) {
         message.textContent = "A communications error has occurred.";
